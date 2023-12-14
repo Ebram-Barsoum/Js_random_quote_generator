@@ -1,5 +1,7 @@
 let generatorBtn = document.getElementById('quote-btn');
-let qoute = document.getElementById('quote');
+let quote = document.getElementById('quote');
+let copyBtn = document.getElementById('copy-btn');
+let speechBtn = document.getElementById('speech-btn');
 let lastIndex = 0;
 
 let quotes = [
@@ -46,9 +48,9 @@ let quotes = [
 ];
 
 function display(text,author) {
-    qoute.innerHTML = `  
-    <p class=" fst-italic  fs-5" id="qoute-content">${text}</p>
-    <p class="fs-5 fw-bolder" id="qoute-author">${author}</p>`
+    quote.innerHTML = `  
+    <p class=" fst-italic fs-5 text-muted text position-relative " id="qoute-content">${text}</p>
+    <p class="fs-5 fw-bolder text-end author" id="qoute-author">${author}</p>`
 }
 
 generatorBtn.onclick = function () {
@@ -67,4 +69,15 @@ generatorBtn.onclick = function () {
     display(quote, author);
 }
 
+copyBtn.onclick = function () {
+    var text = quote.innerText;
 
+    navigator.clipboard.writeText(text);
+}
+
+speechBtn.onclick = function () {
+    let speech = new SpeechSynthesisUtterance();
+    speech.text = quote.innerText;
+
+    window.speechSynthesis.speak(speech);
+}
